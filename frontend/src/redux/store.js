@@ -1,17 +1,8 @@
-import {createStore, combineReducers, applyMiddleware } from 'redux'
-import CounterReducer from './Reducers/CounterReducer';
-import AddCartReducer from './Reducers/AddCartReducer';
-import dataImgReducer from './Reducers/DataImgReducer';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import loginReducer from '../redux/reducers/loginReducer.js'
 
-const rootReducer = combineReducers({
-  CounterReducer,
-  AddCartReducer,
-  dataImgReducer
+export default configureStore({
+  reducer: {
+    login: loginReducer,
+  }
 })
-
-
-
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
-export default store;
