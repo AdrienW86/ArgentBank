@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
-import { isDeconnected } from '../redux/reducers/loginReducer';
+import { useNavigate } from 'react-router';
 
 function Button() {
 
-    const isAuth = useSelector((state) => state.login.value)
-    const dispatch = useDispatch()
+  const isAuth = localStorage.getItem("isAuth")
+  const navigate = useNavigate()
 
+  function deconnexion (){
+    localStorage.clear()
+    navigate('/')
+  }
+
+
+
+  
   return (
     <>  
       {isAuth?    
         <Link
-            onClick={() => dispatch(isDeconnected())}
+            onClick={deconnexion}
             className="main-nav-item"
             to={"/"}>
             <i className="fa fa-sign-out"></i>

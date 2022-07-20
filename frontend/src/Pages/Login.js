@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { useSelector, useDispatch } from 'react-redux'
-import { isConnected } from '../redux/reducers/loginReducer';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { login } from '../redux/actions'
+import { useSelector, useDispatch } from 'react-redux'; 
 
 
 function Login() {
 
-    const isAuth = useSelector((state) => state.login.value)
+    const user = useSelector((state) => state.user)         
     const dispatch = useDispatch()
-    console.log(isAuth)
-    const [username, setUsername] = useState("");
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [checked, setChecked] = useState(false)
-   
+  
+    const userLogin = (e) => {
+        const form = {
+            email,
+            password
+        }
+        e.preventDefault()
+        dispatch(login(form))
+        navigate('/profile')
+    }
 
-   // console.log("nom de l'utilisiteur:" + username)
-   // console.log("mot de passe de l'user :" + password)
-   // console.log("souhaite rester connecté :" + checked)
-    
-     function handleSubmit(event) {
+    const handleSubmit = (event) => { 
        event.preventDefault()
-     }
+    }
 
-     const handleChecked = () => {
-         setChecked(!checked)
-     }
-
-
+    const handleChecked = () => {
+        setChecked(!checked)
+    }
+console.log(user)
   return (
     <>
     <Navbar />
@@ -44,8 +49,8 @@ function Login() {
                         <input 
                             type="text" 
                             id="username" 
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}/>
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                      <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
@@ -64,13 +69,12 @@ function Login() {
                         />
                         <label htmlFor="remember-me"> Remember me </label>
                     </div> 
-                    <Link
-                          to={"/profile"}>             
+                   
+                               
                         <button 
-                            className="sign-in-button"
-                            onClick={() => dispatch(isConnected())}
-                        > Sign In </button>  
-                    </Link>                                 
+                            className="sign-in-button"                           
+                            onClick={userLogin}
+                        > Sign In </button>                                  
                 </form>
             </section>
         </main>

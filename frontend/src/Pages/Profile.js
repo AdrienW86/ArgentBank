@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { profile } from '../redux/actions'
 
 function Profile() {
+
+    const user = useSelector((state) => state.user)
+    const profil = useSelector((state) => (state.user.data))
+    const dispatch = useDispatch()
+
+    let token = localStorage.getItem('token')
+    let config = {
+        headers: {
+            Authorization : `Bearer ${token}`
+        }
+    }
+
+    const userProfile = () => {
+        dispatch(profile(config))
+    }
+
+   useEffect(()=> {  
+        userProfile()
+    // eslint-disable-next-line
+    },[])
+
+    console.log(user) 
+    console.log(profil)
+
   return (
     <>
     <Navbar />
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br />Tony Jarvis!</h1>
+                <h1>Welcome back<br /> {profil.firstName} {profil.lastName}</h1>
                 <button className="edit-button">Edit Name</button>
             </div>
                  <h2 className="sr-only">Accounts</h2>
@@ -43,7 +69,7 @@ function Profile() {
                 </div>
             </section>
         </main>
-        <Footer />
+    <Footer />
     </>
   )
 }
