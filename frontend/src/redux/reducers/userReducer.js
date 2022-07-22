@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login , profile} from '../actions';
+import { login, profile, update} from '../actions';
 
 const INITIAL_STATE = {  
     data: {
@@ -21,12 +21,16 @@ const userSlice = createSlice({
         builder
            // .addCase(login.pending,(state)=>{state.loading = true})
             .addCase(login.fulfilled, (state, action) => {
-                state.data = action.payload.data;
+                state.data = {...state.data, ...action.payload.data};
                 state.isAuth = action.payload.isAuth
             })
             .addCase(profile.fulfilled, (state, action) => {
                 state.data = action.payload.data;
                 state.isAuth = action.payload.isAuth
+            })
+            .addCase(update.fulfilled,(state, action) => {
+                state.data = action.payload.data;
+                
             })
     }
 })

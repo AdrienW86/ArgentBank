@@ -3,12 +3,12 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { useNavigate } from 'react-router';
 import { login } from '../redux/actions'
-import { useSelector, useDispatch } from 'react-redux'; 
+import { useDispatch } from 'react-redux'; 
 
 
 function Login() {
 
-    const user = useSelector((state) => state.user)         
+  //  const user = useSelector((state) => state.user)         
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -33,8 +33,8 @@ function Login() {
     const handleChecked = () => {
         setChecked(!checked)
     }
-console.log(user)
-  return (
+
+    return (
     <>
     <Navbar />
         <main className="main bg-dark">
@@ -68,13 +68,13 @@ console.log(user)
                             onChange={handleChecked}
                         />
                         <label htmlFor="remember-me"> Remember me </label>
-                    </div> 
-                   
-                               
-                        <button 
-                            className="sign-in-button"                           
-                            onClick={userLogin}
-                        > Sign In </button>                                  
+                    </div>                                                 
+                    <button 
+                        className="sign-in-button"                           
+                        onClick={userLogin}
+                    > 
+                        Sign In 
+                    </button>                                  
                 </form>
             </section>
         </main>

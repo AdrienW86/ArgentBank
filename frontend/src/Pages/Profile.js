@@ -1,41 +1,39 @@
 import React, { useEffect } from 'react';
 import Navbar from '../Components/Navbar';
+import Modal from '../Components/Modal';
 import Footer from '../Components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { profile } from '../redux/actions'
 
 function Profile() {
 
-    const user = useSelector((state) => state.user)
+   // const token = useSelector((state) => state.user.data.token)
     const profil = useSelector((state) => (state.user.data))
     const dispatch = useDispatch()
 
-    let token = localStorage.getItem('token')
-    let config = {
-        headers: {
-            Authorization : `Bearer ${token}`
-        }
-    }
+   
 
+//console.log(user)
     const userProfile = () => {
-        dispatch(profile(config))
+        dispatch(profile())
     }
-
+   
    useEffect(()=> {  
         userProfile()
+       
     // eslint-disable-next-line
     },[])
-
-    console.log(user) 
-    console.log(profil)
 
   return (
     <>
     <Navbar />
         <main className="main bg-dark">
-            <div className="header">
-                <h1>Welcome back<br /> {profil.firstName} {profil.lastName}</h1>
-                <button className="edit-button">Edit Name</button>
+            <div className="header">              
+                <h1> Welcome back </h1>  
+                <Modal 
+                    firstname = {profil.firstName}
+                    lastname = {profil.lastName} 
+                />                                  
             </div>
                  <h2 className="sr-only">Accounts</h2>
             <section className="account">

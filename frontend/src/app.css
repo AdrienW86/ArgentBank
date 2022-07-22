@@ -290,3 +290,43 @@ html {
     }
   }
   
+
+  /**** Name Title ****/
+
+  .welcome {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  /**** modale *****/
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .modal-input {
+    width: 200px;
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .modal-input::placeholder{
+    color: rgb(196, 195, 195);
+    opacity: 0.7;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 15px;
+  }
+
+  .modal-btn {
+    width: 100px;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: rgb(118, 95, 208)
+  }
+
