@@ -13,21 +13,28 @@ export const login = createAsyncThunk(
         })
         localStorage.setItem('token', response.data.body.token)
         localStorage.setItem('isAuth', true)
-        return  { data: response.data.body, isAuth: true}
+        console.log(response.data)
+        return  { data: response.data.body , message: response.data.message , isAuth: true}
     }
 )
 
 export const profile = createAsyncThunk(
-    'user/profil',
-    async () => {
-        let token = localStorage.getItem('token')
-    let config = {
-        headers: {
-            'authorization' : `Bearer ${token}`
+    'user/profile',
+    
+    async (token) => {
+     
+       
+        const config = {
+            headers: {
+                'authorization' : `Bearer ${token}`
+            }
         }
-    }
-        const response = await axios.post(profileUrl,{},config)
-        return { data: response.data.body, isAuth: true}
+            const response = await axios.post(profileUrl, {}, config)
+            console.log(response.data)
+            return { data: response.data.body, message: response.data.message, isAuth: true }
+            
+    
+        
     }
 )
 

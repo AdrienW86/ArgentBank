@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
-import Navbar from '../Components/Navbar';
+import React, { useEffect } from 'react';
+import Navbar from '../Components/Header';
 import Footer from '../Components/Footer';
 import { useNavigate } from 'react-router';
-import { login } from '../redux/actions'
+import { login , profile } from '../redux/actions'
 import { useDispatch } from 'react-redux'; 
-
+import { useForm } from "react-hook-form";
 
 function Login() {
 
-  //  const user = useSelector((state) => state.user)         
     const dispatch = useDispatch()
     const navigate = useNavigate()
+   
+    const onFormSubmit = data => (dispatch(login(data)))
+    const onErrors = errors => console.error(errors)
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [checked, setChecked] = useState(false)
-  
-    const userLogin = (e) => {
-        const form = {
-            email,
-            password
+   // const [checked, setChecked] = useState(false)
+
+    const { register, handleSubmit, formState: {errors} } = useForm()
+    const token = localStorage.getItem('token')
+ 
+    useEffect(()=> {
+        if(token) {
+            dispatch(profile(token))
+            navigate('/profile')
         }
-        e.preventDefault()
-        dispatch(login(form))
-        navigate('/profile')
-    }
+    }, [token, dispatch, navigate])
 
-    const handleSubmit = (event) => { 
-       event.preventDefault()
-    }
+   // const handleChecked = () => {
+     //   setChecked(!checked)
+  //  }
 
-    const handleChecked = () => {
-        setChecked(!checked)
-    }
-
+   
     return (
     <>
     <Navbar />
@@ -42,36 +39,35 @@ function Login() {
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
                 <form 
-                     onSubmit={handleSubmit}
+                     onSubmit={handleSubmit(onFormSubmit, onErrors)}
                 >
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
-                        <input 
+                        <input {...register('email',{required: "email is required"})}
                             type="text" 
                             id="username" 
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}/>
+                           
+                        />
+                        {errors?.email && <p style={{ color: 'red', margin: 0}}>{errors.email.message}</p>}
                     </div>
                      <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input 
+                        <input {...register("password", {required: "password is required"})}
                             type="password" 
                             id="password" 
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}/>
+                           
+                        />
+                        {errors?.password && <p style={{ color: 'red', margin: 0}}>{errors.password.message}</p>}
                     </div>
                     <div className="input-remember">
                         <input 
                             type="checkbox" 
-                            id="remember-me" 
-                            value={checked}
-                            onChange={handleChecked}
+                            id="remember-me"                           
                         />
                         <label htmlFor="remember-me"> Remember me </label>
                     </div>                                                 
-                    <button 
-                        className="sign-in-button"                           
-                        onClick={userLogin}
+                    <button type='submit'
+                        className="sign-in-button"                      
                     > 
                         Sign In 
                     </button>                                  

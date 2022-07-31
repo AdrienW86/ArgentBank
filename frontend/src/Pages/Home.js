@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Components/Navbar';
+import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import Chat from '../assets/img/icon-chat.png'
 import Money from '../assets/img/icon-money.png';
@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <>
-    <Navbar />
+    <Header />
     <main>
       <div className="hero">
         <section className="hero-content">

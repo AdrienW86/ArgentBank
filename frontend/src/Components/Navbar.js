@@ -1,24 +1,44 @@
 import React from 'react';
-import Button from './Button';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/img/argentBankLogo.png'
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
+
+  const profil = useSelector((state) => (state.profil))
+  const isAuth = localStorage.getItem("isAuth")
+  const navigate = useNavigate()
+  
+  const deconnexion = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
-    <nav className="main-nav">
-      <Link 
-        className="main-nav-logo" 
-        to={"/"}>
-        <img
-          className="main-nav-logo-image"
-          src={Logo}
-          alt="Argent Bank Logo"
-        />
-        <h1 className="sr-only">Argent Bank</h1>
-      </Link>
-     <Button />
-    </nav>
+    <>  
+      {isAuth?  
+        <div>
+          <i className="fa fa-user-circle"></i> 
+          <p> {profil.data.firstName} </p>    
+         <Link
+            onClick={deconnexion}
+            className="main-nav-item"
+            to={"/"}
+          >         
+          <i className="fa fa-sign-out"></i>
+            Sign Out
+        </Link>  
+        </div>       
+      :           
+        <Link 
+            className="main-nav-item" 
+            to={"/login"}
+        >
+            <i className="fa fa-user-circle"></i>
+            Sign In
+        </Link>  
+      }         
+    </>
   )
 }
-
 export default Navbar

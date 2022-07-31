@@ -10,13 +10,6 @@ function Modal(props) {
         setToggle(false)
     }
 
-    //const userUpdate = () => {
-        
-        
-        //  dispatch(update(config, firstName, lastName ))
-   // }
-
-
     const resetForm = () => {
         setFirstName("")
         setLastName("")
@@ -28,7 +21,7 @@ function Modal(props) {
     {toggle 
         ?
             <section>
-                <div className='welcome'> {props.firstname} {props.lastname}</div> 
+                <div className='welcome'>{props.firstname} {props.lastname}</div> 
                 <button 
                     className="edit-button"
                     onClick={toggleBtn}                  

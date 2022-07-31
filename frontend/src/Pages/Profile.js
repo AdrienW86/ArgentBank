@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/Header';
 import Modal from '../Components/Modal';
 import Footer from '../Components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,32 +7,25 @@ import { profile } from '../redux/actions'
 
 function Profile() {
 
-   // const token = useSelector((state) => state.user.data.token)
-    const profil = useSelector((state) => (state.user.data))
     const dispatch = useDispatch()
-
+    const profil = useSelector((state) => (state.profil)) 
+    const token = localStorage.getItem('token')
+     
+    useEffect(()=> {
    
+        dispatch(profile(token))
+        // eslint-disable-next-line
+    }, [])
 
-//console.log(user)
-    const userProfile = () => {
-        dispatch(profile())
-    }
-   
-   useEffect(()=> {  
-        userProfile()
-       
-    // eslint-disable-next-line
-    },[])
-
-  return (
+  return (    
     <>
-    <Navbar />
+    <Navbar  />
         <main className="main bg-dark">
             <div className="header">              
                 <h1> Welcome back </h1>  
                 <Modal 
-                    firstname = {profil.firstName}
-                    lastname = {profil.lastName} 
+                    firstname = {profil.data.firstName}
+                    lastname = {profil.data.lastName} 
                 />                                  
             </div>
                  <h2 className="sr-only">Accounts</h2>
