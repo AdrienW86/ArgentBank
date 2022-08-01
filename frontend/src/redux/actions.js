@@ -19,30 +19,33 @@ export const login = createAsyncThunk(
 )
 
 export const profile = createAsyncThunk(
-    'user/profile',
-    
+    'user/profile',   
     async (token) => {
-     
-       
         const config = {
             headers: {
                 'authorization' : `Bearer ${token}`
             }
         }
-            const response = await axios.post(profileUrl, {}, config)
+        const response = await axios.post(profileUrl, {}, config)
             console.log(response.data)
-            return { data: response.data.body, message: response.data.message, isAuth: true }
-            
-    
-        
+            return { data: response.data.body, message: response.data.message, isAuth: true }       
     }
 )
 
  export const update = createAsyncThunk(
      'user/update',
-     async (config, firstName, lastName) => {
+     async ( data ) => {
+        const firstName = data.firstName
+        const lastName = data.lastName
+        const token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'authorization' : `Bearer ${token}`
+            }
+        }
         
-         const response = await axios.update(profileUrl,firstName,lastName, config )
+         const response = await axios.put(profileUrl,{firstName, lastName}, config )
+         console.log(response)
          return { data: response.data.body, isAuth: true}
      }
 )

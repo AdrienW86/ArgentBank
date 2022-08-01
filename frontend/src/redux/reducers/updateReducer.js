@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login } from '../actions';
+import {  update } from '../actions';
 
 const INITIAL_STATE = {  
    
     data: {
         token: null,
         message: null,
+        firstName: null,
+        lastName: null,
     },
         
         isAuth: false,
@@ -13,26 +15,20 @@ const INITIAL_STATE = {
     
 }
 
-export const userSlice = createSlice({
-    name: 'user',
+export const updateSlice = createSlice({
+    name: 'update',
     initialState: INITIAL_STATE,
     reducers: {},
     extraReducers:(builder) => {
         builder
-            .addCase(login.pending,(state)=>{state.isLoading = true})
-            .addCase(login.fulfilled, (state, action) => {
+            .addCase(update.pending,(state)=>{state.isLoading = true})
+            .addCase(update.fulfilled, (state, action) => {
                 state.data = action.payload.data
                 state.isAuth = action.payload.isAuth
                 state.message = action.payload.message
                 
-            })           
+            })             
     }
 })
 
-
-
-export default userSlice.reducer
-
-
-
-
+export default updateSlice.reducer

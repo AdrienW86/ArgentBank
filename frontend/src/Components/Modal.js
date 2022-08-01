@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux'; 
+import { update, profile } from '../redux/actions'
 
 function Modal(props) {
 
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
     const [toggle, setToggle ] = useState(true)
 
     const toggleBtn = () => {
         setToggle(false)
     }
+    
+    const token = localStorage.getItem('token')
+    const dispatch = useDispatch()
 
-    const resetForm = () => {
-        setFirstName("")
-        setLastName("")
-        setToggle(true)
+    const onSubmit = data => {
+        dispatch(update(data))
+        dispatch(profile(token))
+        setToggle(true) 
+        reset ({ firstname: "", lastname: ""})
     }
+
+    const onErrors = errors => console.error(errors)
+    const { register, handleSubmit, reset, formState: {errors} } = useForm()
 
   return (
     <>
@@ -30,24 +38,27 @@ function Modal(props) {
                 </button>
             </section>             
         :
-            <form className='modal' >
+            <form 
+                className='modal'
+                onSubmit={handleSubmit(onSubmit, onErrors)}
+             >
               <div className='input-container'>
                 <input 
                     className='modal-input'
                     type="text" 
                     id="username" 
                     placeholder={props.firstname}
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                   {...register('firstName', {required: "firstname is required"})}
                 />
+                {errors?.firstName && <p style={{ color: 'red', margin: 0}}>{errors.firstName.message}</p>}
                 <input 
                     className='modal-input'
                     type="text" 
                     id="username" 
                     placeholder={props.lastname}
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    {...register('lastName', {required: "lastname is required"})}
                 />   
+                {errors?.lastName && <p style={{ color: 'red', margin: 0}}>{errors.lastName.message}</p>}
               </div>
               <div className='btn-container'>
                 <button
@@ -59,15 +70,14 @@ function Modal(props) {
                 <button
                     className='modal-btn'
                     type='button'
-                    onClick={resetForm}
+                    onClick={() => reset ({ firstname: "", lastname: ""}, setToggle(true))}
                 >
                     Cancel 
                 </button>
               </div>      
         </form>
     }
-    </>
-   
+    </>  
   )
 }
 

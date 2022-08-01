@@ -10,14 +10,14 @@ function Login() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-   
+    const token = localStorage.getItem('token')
     const onFormSubmit = data => (dispatch(login(data)))
     const onErrors = errors => console.error(errors)
 
    // const [checked, setChecked] = useState(false)
 
     const { register, handleSubmit, formState: {errors} } = useForm()
-    const token = localStorage.getItem('token')
+   
  
     useEffect(()=> {
         if(token) {
