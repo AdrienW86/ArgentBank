@@ -17,9 +17,9 @@ function Navbar() {
   return (
     <>  
       {isAuth?  
-        <div>
+        <div className='profil'>
           <i className="fa fa-user-circle"></i> 
-          <p> {profil.data.firstName} </p>    
+          <div className='profil-name'> {profil.data.firstName} </div>    
          <Link
             onClick={deconnexion}
             className="main-nav-item"

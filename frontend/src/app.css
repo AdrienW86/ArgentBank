@@ -335,3 +335,27 @@ html {
 #text {
   color: red;
 }
+
+.profil {
+  display: flex
+}
+
+.profil-name {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.notFound-title {
+  font-size: 4em;
+  font-weight: bold;
+  color: red;
+}
+
+.link-container {
+  padding-bottom: 20px;
+}
+.notFound-link {
+  text-decoration: none;
+  color: red;
+  font-weight: bold;
+}

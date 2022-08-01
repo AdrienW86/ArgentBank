@@ -7,6 +7,8 @@ import Security from '../assets/img/icon-security.png';
 
 function Home() {
 
+  localStorage.clear()
+
   return (
     <>
     <Header />

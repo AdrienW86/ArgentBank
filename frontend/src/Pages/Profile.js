@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '../Components/Header';
+import Header from '../Components/Header';
 import Modal from '../Components/Modal';
 import Footer from '../Components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +19,7 @@ function Profile() {
 
   return (    
     <>
-    <Navbar  />
+    <Header  />
         <main className="main bg-dark">
             <div className="header">              
                 <h1> Welcome back </h1>  

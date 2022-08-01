@@ -163,4 +163,4 @@ definitions:
       firstName:
         type: string
       lastName:
-        type: string
+        type: string 

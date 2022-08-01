@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '../Components/Header';
+import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { useNavigate } from 'react-router';
 import { login , profile } from '../redux/actions'
@@ -33,7 +33,7 @@ function Login() {
    
     return (
     <>
-    <Navbar />
+    <Header />
         <main className="main bg-dark">
              <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
