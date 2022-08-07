@@ -4,16 +4,24 @@ import Modal from '../Components/Modal';
 import Footer from '../Components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { profile } from '../redux/actions'
+import { useNavigate } from 'react-router';
 
 function Profile() {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const profil = useSelector((state) => (state.profil)) 
     const token = localStorage.getItem('token')
-     
+ 
     useEffect(()=> {
-   
-        dispatch(profile(token))
+        if(token === null || token === undefined) {
+            alert('vous devez vous identifier')
+            navigate('/')
+        }
+        else {
+            dispatch(profile(token))
+        }       
         // eslint-disable-next-line
     }, [])
 

@@ -8,22 +8,29 @@ import { useForm } from "react-hook-form";
 
 function Login() {
 
+
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const token = localStorage.getItem('token')
+    
     const onFormSubmit = data => (dispatch(login(data)))
     const onErrors = errors => console.error(errors)
+    const { register, handleSubmit, formState: {errors}, clearErrors } = useForm()
+    
+    let badRequest = localStorage.getItem('error')
 
-   // const [checked, setChecked] = useState(false)
+   if (badRequest == 'badRequest' ){
+        localStorage.clear()
+    }
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
-   
- 
+ // const [checked, setChecked] = useState(false)
     useEffect(()=> {
         if(token) {
             dispatch(profile(token))
             navigate('/profile')
         }
+        
     }, [token, dispatch, navigate])
 
    // const handleChecked = () => {
@@ -54,8 +61,7 @@ function Login() {
                         <label htmlFor="password">Password</label>
                         <input {...register("password", {required: "password is required"})}
                             type="password" 
-                            id="password" 
-                           
+                            id="password"                           
                         />
                         {errors?.password && <p style={{ color: 'red', margin: 0}}>{errors.password.message}</p>}
                     </div>
@@ -70,13 +76,18 @@ function Login() {
                         className="sign-in-button"                      
                     > 
                         Sign In 
-                    </button>                                  
+                    </button>                                                                  
                 </form>
+                {badRequest ? 
+                    <div className='alert'>
+                        <p style={{ color: 'red', margin: 0}}> Mot de passe ou identifiant incorrect</p>
+                    </div> :
+                    <div></div>
+                }  
             </section>
         </main>
     <Footer />
     </>
   )
 }
-
 export default Login
